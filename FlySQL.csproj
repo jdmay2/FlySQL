@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <PackageId>FlySQL</PackageId>
+    <Authors>jdmay2</Authors>
+    <Description>FlySQL is a simple, easy to use companion for the MySQL.Data NuGet library.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>MySql, SQL, Data, Query</PackageTags>
+    <RepositoryUrl>https://github.com/jdmay2/FlySQL</RepositoryUrl>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
+    <Using Include="MySql.Data.MySqlClient" />
+  </ItemGroup>
+
+</Project>
