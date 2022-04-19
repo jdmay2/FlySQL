@@ -856,7 +856,7 @@
     "/Users/josephmay/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "restore": {
       "projectUniqueName": "/Users/josephmay/FlySQL/FlySQL.csproj",
       "projectName": "Fly.SQL",
@@ -865,6 +865,7 @@
       "outputPath": "/Users/josephmay/FlySQL/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "/Users/josephmay/NuGet.Config",
         "/Users/josephmay/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
