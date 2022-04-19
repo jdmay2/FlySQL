@@ -1,0 +1,12 @@
+/Users/josephmay/FlySQL/bin/Debug/net6.0/FlySQL.deps.json
+/Users/josephmay/FlySQL/bin/Debug/net6.0/FlySQL.dll
+/Users/josephmay/FlySQL/bin/Debug/net6.0/FlySQL.pdb
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.csproj.AssemblyReference.cache
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.GeneratedMSBuildEditorConfig.editorconfig
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.AssemblyInfoInputs.cache
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.AssemblyInfo.cs
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.csproj.CoreCompileInputs.cache
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.dll
+/Users/josephmay/FlySQL/obj/Debug/net6.0/refint/FlySQL.dll
+/Users/josephmay/FlySQL/obj/Debug/net6.0/FlySQL.pdb
+/Users/josephmay/FlySQL/obj/Debug/net6.0/ref/FlySQL.dll

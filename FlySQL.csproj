@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <PackageId>FlySQL</PackageId>
+    <PackageId>Fly.SQL</PackageId>
     <Authors>jdmay2</Authors>
     <Description>FlySQL is a simple, easy to use companion for the MySQL.Data NuGet library.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

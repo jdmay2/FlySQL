@@ -4,10 +4,9 @@ public abstract class SQL
     private MySqlConnection con { get; set; }
     private MySqlCommand cmd { get; set; }
     private MySqlDataReader rdr { get; set; }
-    public string Connection { get; set; }
-    public void Connect()
+    public void Connect(string connection)
     {
-        con = new MySqlConnection(Connection);
+        con = new MySqlConnection(connection);
     }
     public void Query(string stm)
     {

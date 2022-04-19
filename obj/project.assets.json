@@ -859,7 +859,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "/Users/josephmay/FlySQL/FlySQL.csproj",
-      "projectName": "FlySQL",
+      "projectName": "Fly.SQL",
       "projectPath": "/Users/josephmay/FlySQL/FlySQL.csproj",
       "packagesPath": "/Users/josephmay/.nuget/packages/",
       "outputPath": "/Users/josephmay/FlySQL/obj/",
