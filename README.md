@@ -4,6 +4,36 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 > Note: You do not need to add the MySql.Data package as it is already a dependency contained within this package.
 
+## Install Package
+### NuGet Package Manager
+```
+    Install-Package Fly.SQL -Version 1.0.1
+```
+### .NET CLI
+```
+    dotnet add package Fly.SQL --version 1.0.1
+```
+### Package Reference
+```csharp
+    <PackageReference Include="Fly.SQL" Version="1.0.1" />
+```
+### Packet CLI
+```
+    paket add Fly.SQL --version 1.0.1
+```
+### Script & Interactive
+```
+    #r "nuget: Fly.SQL, 1.0.1"
+```
+### Cake
+```
+    // Cake Addin
+    #addin nuget:?package=Fly.SQL&version=1.0.1
+    
+    // Cake Tool
+    #tool nuget:?package=Fly.SQL&version=1.0.1
+```
+
 ## Package Layout
 > SQL is the base class to use for the methods to be added  
 > 
@@ -35,6 +65,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 [`Add(string param, string value)` (+3 Overloads)](#full-add-example)  
 [`Finish()`](#full-add-example)  
 
+[Full Read All Example](#full-read-all-example)   
 [Full Read Example](#full-read-example)   
 [Full Add Example](#full-add-example)   
 [Full Edit Example](#full-edit-example)   
@@ -92,17 +123,13 @@ Add the using statement and SQL base class to setup the file for use of the pack
       //Read();
       
       // User is just a sample entity
-      List<User> users = new List<User>();
-      while (Study())
+      Study();
+      return new User()
       {
-        users.Add(new User()
-          {
-            Id = Int(0),
-            Username = String(1),
-            Name = String(2),
-          });
-      }
-      return users;
+        Id = Int(0),
+        Username = String(1),
+        Name = String(2),
+      };
     }
 ```
 <h3 id="close-example">Closing the Connection</h3>
@@ -115,17 +142,16 @@ Add the using statement and SQL base class to setup the file for use of the pack
       //Read();
       
       // User is just a sample entity
-      //List<User> users = new List<User>();
-      //while (Study())
+      //Study();
+      //return new User()
       //{
       //  ...
-      //}
-      //return users;
+      //};
       
       Close();
     }
 ```
-<h3 id="full-read-example">Full Read Example</h3>
+<h3 id="full-read-all-example">Full Read All Example</h3>
 
 ```csharp
     using FlySQL;
@@ -150,6 +176,33 @@ Add the using statement and SQL base class to setup the file for use of the pack
             });
         }
         return users;
+        
+        Close();
+      }
+    }
+```
+<h3 id="full-read-example">Full Read Example</h3>
+
+```csharp
+    using FlySQL;
+    
+    public class ReadUser : SQL
+    {
+      public User Get(int userId)
+      {
+        Connect($"server={server};port={port};database={database};user={username};password={password}");
+        Query(@"SELECT * FROM users WHERE id=@userId");
+        Add("@userId", userId);
+        Read();
+        
+        // User is just a sample entity
+        Study();
+        return new User()
+        {
+          Id = Int(0),
+          Username = String(1),
+          Name = String(2),
+        };
         
         Close();
       }
