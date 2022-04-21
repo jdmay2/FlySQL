@@ -20,11 +20,11 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 ## Install Package
 ### NuGet Package Manager
 ```
-    Install-Package Fly.SQL -Version 1.0.1
+    Install-Package Fly.SQL
 ```
 ### .NET CLI
 ```
-    dotnet add package Fly.SQL --version 1.0.1
+    dotnet add package Fly.SQL
 ```
 ### Package Reference
 ```csharp
@@ -32,7 +32,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 ```
 ### Packet CLI
 ```
-    paket add Fly.SQL --version 1.0.1
+    paket add Fly.SQL
 ```
 ### Script & Interactive
 ```
