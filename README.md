@@ -60,6 +60,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 [`SQL`](#set-up-file)  
 [`Connect(string connection-string)`](#connection-example)  
 [`Query(string connection-string)`](#query-example)  
+[`Add(string param, value)`](#add-example)    
 [`Read()`](#reader-example)  
 [`Study()`](#read-example)  
 
@@ -106,7 +107,7 @@ Add the using statement and SQL base class to setup the file for use of the pack
 #### v1.0.1
 
 ```csharp
-    public List<User> Get()
+    public User Get(int id)
     {
       Connect($"server={server};port={port};database={database};user={username};password={password}");
       //Connect(string connection-string);
@@ -116,7 +117,7 @@ Add the using statement and SQL base class to setup the file for use of the pack
 #### v1.0.0
 
 ```csharp
-    public List<User> Get()
+    public User Get(int id)
     {
       Connection = $"server={server};port={port};database={database};user={username};password={password}";
       Connect();
@@ -126,21 +127,34 @@ Add the using statement and SQL base class to setup the file for use of the pack
 <h3 id="query-example">Setting the Query</h3>
 
 ```csharp
-    public List<User> Get()
+    public User Get(int id)
     {
       //Connect(cs);
       
-      Query(@"SELECT * FROM users");
+      Query(@"SELECT * FROM users WHERE id=@userId");
       //Query(string sql-query);
+    }
+```
+<h3 id="add-example">Adding the Parameter</h3>
+
+```csharp
+    public User Get(int id)
+    {
+      //Connect(cs);
+      //Query(statement);
+      
+      Add("@userId", id);
+      //Add(param, value); Currently accepts int, string, bool, datetime
     }
 ```
 <h3 id="reader-example">Initiating the Reader</h3>
 
 ```csharp
-    public List<User> Get()
+    public User Get(int id)
     {
       //Connect(cs);
       //Query(statement);
+      //Add(param, value);
       
       Read();
     }
@@ -148,10 +162,11 @@ Add the using statement and SQL base class to setup the file for use of the pack
 <h3 id="read-example">Using the Reader</h3>
 
 ```csharp
-    public List<User> Get()
+    public User Get(int id)
     {
       //Connect(cs);
       //Query(statement);
+      //Add(param, value);
       //Read();
       
       // User is just a sample entity
@@ -167,10 +182,11 @@ Add the using statement and SQL base class to setup the file for use of the pack
 <h3 id="close-example">Closing the Connection</h3>
 
 ```csharp
-    public List<User> Get()
+    public User Get(int id)
     {
       //Connect(cs);
       //Query(statement);
+      //Add(param, value);
       //Read();
       
       // User is just a sample entity
