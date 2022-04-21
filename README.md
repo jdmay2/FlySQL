@@ -13,7 +13,7 @@
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-success.svg?style=flat-square&color=33CC12" target="_blank" />
   </a>
   <a aria-label="FlySQL downloads" href="https://nugettrends.com/packages?months=12&ids=Fly.SQL" target="_blank">
-    <img alt="Downloads" src="https://img.shields.io/nuget/dt/Fly.SQL.svg?style=flat-square&labelColor=gray&color=33CC12&label=Downloads&logo=nuget" />
+    <img alt="Downloads" src="https://img.shields.io/nuget/dt/Fly.SQL.svg?style=flat-square&cache=3600&labelColor=gray&color=33CC12&label=Downloads&logo=nuget" />
   </a>
 </p>
 
