@@ -1,4 +1,17 @@
 # FlySQL  
+
+<p align="left">
+   <a aria-label="stable-release-version" href="https://www.nuget.org/packages/Fly.SQL/1.0.1" target="_blank">
+    <img alt="FlySQL Stable Release" src="https://img.shields.io/nuget/v/Fly.SQL.svg?style=flat-square&label=Stable&labelColor=000000&color=0000cc" />
+  </a>
+  <a aria-label="FlySQL is free to use" href="https://github.com/jdmay2/FlySQL/blob/main/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-success.svg?style=flat-square&color=33CC12" target="_blank" />
+  </a>
+  <a aria-label="FlySQL downloads" href="https://nugettrends.com/packages?months=12&ids=Fly.SQL" target="_blank">
+    <img alt="Downloads" src="https://img.shields.io/nuget/dt/Fly.SQL.svg?style=flat-square&labelColor=gray&color=33CC12&label=Downloads&logo=nuget" />
+  </a>
+</p>
+
 ### ‼️This package only supports .NET 6‼️
 A simple ORM for the MySql.Data NuGet package to use in any projects allowing for an easier and cleaner experience with basic MySQL operations.  
 
