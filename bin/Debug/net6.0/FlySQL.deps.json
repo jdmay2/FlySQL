@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "FlySQL/1.0.1": {
+      "FlySQL/1.0.2": {
         "dependencies": {
           "MySql.Data": "8.0.28"
         },
@@ -216,7 +216,7 @@
     }
   },
   "libraries": {
-    "FlySQL/1.0.1": {
+    "FlySQL/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
