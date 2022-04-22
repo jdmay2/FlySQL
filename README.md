@@ -29,13 +29,13 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 ### NuGet Package Manager
 
-```cmd
+```
     Install-Package Fly.SQL
 ```
 
 ### .NET CLI
 
-```cmd
+```
     dotnet add package Fly.SQL
 ```
 
@@ -47,7 +47,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 ### Packet CLI
 
-```cmd
+```
     paket add Fly.SQL
 ```
 
@@ -59,7 +59,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 ### Cake
 
-```cmd
+```
     // Cake Addin
     #addin nuget:?package=Fly.SQL&version=1.0.3
 
