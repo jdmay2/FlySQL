@@ -7,7 +7,7 @@
 
 <p align="center">
    <a aria-label="stable-release-version" href="https://www.nuget.org/packages/Fly.SQL/1.0.3" target="_blank">
-    <img alt="FlySQL Stable Release" src="https://img.shields.io/nuget/v/Fly.SQL.svg?style=flat-square&label=Stable&labelColor=000000&color=0ea5e9" />
+    <img alt="FlySQL Stable Release" src="https://img.shields.io/nuget/v/Fly.SQL.svg?style=flat-square&cache=3600&label=Stable&labelColor=000000&color=0ea5e9" />
   </a>
   <a aria-label="FlySQL is free to use" href="https://github.com/jdmay2/FlySQL/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-success.svg?style=flat-square&color=33CC12" target="_blank" />
