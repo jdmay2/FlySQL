@@ -856,7 +856,7 @@
     "/Users/josephmay/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "restore": {
       "projectUniqueName": "/Users/josephmay/FlySQL/FlySQL.csproj",
       "projectName": "Fly.SQL",

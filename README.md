@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-   <a aria-label="stable-release-version" href="https://www.nuget.org/packages/Fly.SQL/1.0.2" target="_blank">
+   <a aria-label="stable-release-version" href="https://www.nuget.org/packages/Fly.SQL/1.0.3" target="_blank">
     <img alt="FlySQL Stable Release" src="https://img.shields.io/nuget/v/Fly.SQL.svg?style=flat-square&label=Stable&labelColor=000000&color=0ea5e9" />
   </a>
   <a aria-label="FlySQL is free to use" href="https://github.com/jdmay2/FlySQL/blob/main/LICENSE" target="_blank">
@@ -42,7 +42,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 ### Package Reference
 
 ```csharp
-    <PackageReference Include="Fly.SQL" Version="1.0.2" />
+    <PackageReference Include="Fly.SQL" Version="1.0.3" />
 ```
 
 ### Packet CLI
@@ -54,17 +54,17 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 ### Script & Interactive
 
 ```
-    #r "nuget: Fly.SQL, 1.0.2"
+    #r "nuget: Fly.SQL, 1.0.3"
 ```
 
 ### Cake
 
 ```cmd
     // Cake Addin
-    #addin nuget:?package=Fly.SQL&version=1.0.2
+    #addin nuget:?package=Fly.SQL&version=1.0.3
 
     // Cake Tool
-    #tool nuget:?package=Fly.SQL&version=1.0.2
+    #tool nuget:?package=Fly.SQL&version=1.0.3
 ```
 
 ## Package Layout
