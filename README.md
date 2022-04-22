@@ -42,7 +42,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 ### Package Reference
 
 ```csharp
-    <PackageReference Include="Fly.SQL" Version="1.0.1" />
+    <PackageReference Include="Fly.SQL" Version="1.0.2" />
 ```
 
 ### Packet CLI
@@ -54,17 +54,17 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 ### Script & Interactive
 
 ```
-    #r "nuget: Fly.SQL, 1.0.1"
+    #r "nuget: Fly.SQL, 1.0.2"
 ```
 
 ### Cake
 
 ```
     // Cake Addin
-    #addin nuget:?package=Fly.SQL&version=1.0.1
+    #addin nuget:?package=Fly.SQL&version=1.0.2
 
     // Cake Tool
-    #tool nuget:?package=Fly.SQL&version=1.0.1
+    #tool nuget:?package=Fly.SQL&version=1.0.2
 ```
 
 ## Package Layout
