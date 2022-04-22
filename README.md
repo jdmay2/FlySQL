@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-   <a aria-label="stable-release-version" href="https://www.nuget.org/packages/Fly.SQL/1.0.1" target="_blank">
+   <a aria-label="stable-release-version" href="https://www.nuget.org/packages/Fly.SQL/1.0.2" target="_blank">
     <img alt="FlySQL Stable Release" src="https://img.shields.io/nuget/v/Fly.SQL.svg?style=flat-square&label=Stable&labelColor=000000&color=0ea5e9" />
   </a>
   <a aria-label="FlySQL is free to use" href="https://github.com/jdmay2/FlySQL/blob/main/LICENSE" target="_blank">
@@ -29,42 +29,42 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 ### NuGet Package Manager
 
-```
+```cmd
     Install-Package Fly.SQL
 ```
 
 ### .NET CLI
 
-```
+```cmd
     dotnet add package Fly.SQL
 ```
 
 ### Package Reference
 
 ```csharp
-    <PackageReference Include="Fly.SQL" Version="1.0.1" />
+    <PackageReference Include="Fly.SQL" Version="1.0.2" />
 ```
 
 ### Packet CLI
 
-```
+```cmd
     paket add Fly.SQL
 ```
 
 ### Script & Interactive
 
-```
-    #r "nuget: Fly.SQL, 1.0.1"
+```cmd
+    #r "nuget: Fly.SQL, 1.0.2"
 ```
 
 ### Cake
 
-```
+```cmd
     // Cake Addin
-    #addin nuget:?package=Fly.SQL&version=1.0.1
+    #addin nuget:?package=Fly.SQL&version=1.0.2
 
     // Cake Tool
-    #tool nuget:?package=Fly.SQL&version=1.0.1
+    #tool nuget:?package=Fly.SQL&version=1.0.2
 ```
 
 ## Package Layout
@@ -73,7 +73,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 - ### **[`SQL`](#set-up-file)**
 - [`Connect(string connection-string)`](#connection-example)
-- [`Query(string connection-string)`](#query-example)
+- [`Query(string statement)`](#query-example)
 - [`Read()`](#reader-example)
 - [`Study()`](#read-example)
 
@@ -91,6 +91,8 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 > Same as above, but for possible null values. Condensed versions of MySqlDataReader null checks for incoming values (IsDBNull).
 
 - `NString(int)`
+  - Returns `""` if null
+- `NStrung(int)`
   - Returns null if null
 - `NInt(int)`
   - Returns 0 if null
@@ -107,17 +109,9 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 - `NBool(int)`
   - Returns false if null
 
-> [The Add method is used to add parameters to the SQL query. It currently accepts the types listed below the method.](#add-example)
+> [The Add method is used to add parameters to the SQL query. It accepts any input types the same as AddWithValue() would accept.](#add-example)
 
-- [`Add(string param, string value)` (+8 Overloads)](#full-add-example)
-  - `string`
-  - `int`
-  - `long`
-  - `double`
-  - `float`
-  - `decimal`
-  - `DateTime`
-  - `bool`
+- [`Add(string param, object value)`](#full-add-example)
 
 > The Close method simply closes the connection to the database. The Finish method is used to prepare and execute other queries.
 
@@ -126,11 +120,17 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 ### **[`Quick Queries`](#quick-query-examples)**
 
+- [`Query(string statement, string param, object value)`](#quick-query-example)
 - [`Select(string table)`](#select-example)
 - [`Select(string table, string target)`](#select-single-example)
+- [`Select(string table, string target, object value)`](#select-single-value-example)
 - [`Insert(string table, params string[] columns)`](#insert-example)
+- [`OneInsert(string table, params object[] values)`](#one-insert-example)
 - [`Update(string table, string target, params string[] columns)`](#update-example)
+- [`OneUpdate(string table, string target, object targetValue, params object[] values)`](#one-update-example)
 - [`Delete(string table, string target)`](#delete-example)
+- [`Delete(string table, string target, object value)`](#delete-single-example)
+- [`Mad(params object[] values)`](#mad-example)
 - [`Bulk(params object[] values)`](#insert-example)
 
 ### **Full Examples**
@@ -157,7 +157,7 @@ Add the using statement and SQL base class to setup the file for use of the pack
 
 <h3 id="connection-example">Setting the Connection String</h3>
 
-#### v1.0.1
+#### As of v1.0.1
 
 ```csharp
     public User Get(int id)
@@ -386,7 +386,7 @@ Add the using statement and SQL base class to setup the file for use of the pack
 
 > Quick queries are used to simplify basic sql statements even further and are used in the following examples.
 
-<h3 id="select-example">Select Example</h3>
+<h3 id="quick-query-example">Query Example</h3>
 
 ```csharp
     using FlySQL;
@@ -397,9 +397,10 @@ Add the using statement and SQL base class to setup the file for use of the pack
       {
         Connect("connection-string");
 
-        Select("users");
-        //SELECT * FROM users
-        /* similar to Query(); but without the need to write the SQL statement, just put the table name if you want to select all */
+        // users and courses are just sample entities
+        Query(@"SELECT * FROM courses WHERE courseId IN (SELECT courseId FROM course_students WHERE userId=@userId)", "userId", id);
+        // The Query(stm, param, value) method is used for if you have a more complex query with only one parameter
+        // The parameter is added within the method
 
         Read();
 
@@ -414,9 +415,45 @@ Add the using statement and SQL base class to setup the file for use of the pack
               Name = String(2),
             });
         }
-        return users;
 
         Close();
+        return users;
+      }
+    }
+```
+
+<h3 id="select-example">Select Example</h3>
+
+```csharp
+    using FlySQL;
+
+    public class ReadUsers : SQL
+    {
+      public List<User> Get()
+      {
+        Connect("connection-string");
+
+        // User is just a sample entity
+        Select("users");
+        //SELECT * FROM users
+        // similar to Query(); but without the need to write the SQL statement, just put the table name if you want to select all columns
+
+        Read();
+
+        // User is just a sample entity
+        List<User> users = new List<User>();
+        while (Study())
+        {
+          users.Add(new User()
+            {
+              Id = Int(0),
+              Username = String(1),
+              Name = String(2),
+            });
+        }
+
+        Close();
+        return users;
       }
     }
 ```
@@ -432,6 +469,7 @@ Add the using statement and SQL base class to setup the file for use of the pack
       {
         Connect("connection-string");
 
+        // User is just a sample entity
         Select("users", "userId");
         //SELECT * FROM users WHERE userId=@userId
         /* similar to Query(); but without the need to write the SQL statement, just put the table name and the target column name if you want to select a single value */
@@ -439,6 +477,38 @@ Add the using statement and SQL base class to setup the file for use of the pack
 
         Add("@userId", Id);
         /* parameters add like normal, but make sure that they are same name as the target column name */
+
+        Read();
+
+        // User is just a sample entity
+        Study();
+        return new User()
+        {
+          Id = Int(0),
+          Username = String(1),
+          Name = String(2),
+        };
+
+        Close();
+      }
+    }
+```
+
+<h3 id="select-single-value-example">Select Single With Value Example</h3>
+
+```csharp
+    using FlySQL;
+
+    public class ReadUser : SQL
+    {
+      public User Get(int id)
+      {
+        Connect("connection-string");
+
+        // User is just a sample entity
+        Select("users", "userId", id);
+        //SELECT * FROM users WHERE userId=@userId
+        // Just like Select(table, target) but the target value added and no need to use Add()
 
         Read();
 
@@ -490,6 +560,26 @@ Add the using statement and SQL base class to setup the file for use of the pack
     }
 ```
 
+<h3 id="one-insert-example">OneInsert Example</h3>
+
+```csharp
+    using FlySQL;
+
+    public class AddUser : SQL
+    {
+      public void Add(User user)
+      {
+        Connect("connection-string");
+        // Assume id is an integer and auto-incrementing
+        // User is just a sample entity
+        OneInsert("users", "username", user.Username, "name", user.Name);
+        // table name, param pairs
+        //INSERT INTO users (username, name) VALUES (@username, @name)
+        //Will auto run Finish() after OneInsert is called, assuming that all values have been added in the OneInsert() method
+      }
+    }
+```
+
 <h3 id="update-example">Update Example</h3>
 
 ```csharp
@@ -518,6 +608,25 @@ Add the using statement and SQL base class to setup the file for use of the pack
     }
 ```
 
+<h3 id="one-update-example">OneUpdate Example</h3>
+
+```csharp
+    using FlySQL;
+
+    public class EditUser : SQL
+    {
+      public void Edit(User user)
+      {
+        Connect("connection-string");
+        // User is just a sample entity
+        OneUpdate("users", "userId", user.Id,"username", user.Username, "name", user.Name);
+        // table name, target name, target value, param pairs ...
+        // UPDATE users SET username=@username, name=@name WHERE userId=@userId
+        // Will auto run Finish() after OneUpdate is called, assuming that all values have been added in the OneUpdate() method
+      }
+    }
+```
+
 <h3 id="delete-example">Delete Example</h3>
 
 ```csharp
@@ -534,6 +643,53 @@ Add the using statement and SQL base class to setup the file for use of the pack
         // DELETE FROM users WHERE userId=@userId
 
         Add("@userId", id); // Add Parameter
+        Finish(); // prepare statement and execute
+      }
+    }
+```
+
+<h3 id="delete-single-example">Delete With Value Example</h3>
+
+```csharp
+    using FlySQL;
+
+    public class DeleteUser : SQL
+    {
+      public void Delete(int id)
+      {
+        Connect("connection-string");
+        // User is just a sample entity
+        Delete("users", "userId", id);
+        // table name, target name, target value
+        // DELETE FROM users WHERE userId=@userId
+        // Will auto run Finish() after Delete() is called
+      }
+    }
+```
+
+<h3 id="mad-example">Mad Example</h3>
+
+```csharp
+    using FlySQL;
+
+    // Does not have to just be edit, this is just an example to show how to use the method
+
+    public class EditUser : SQL
+    {
+      public void Edit(User user)
+      {
+        Connect("connection-string");
+        // User is just a sample entity
+        Update("users", "userId", "username", "name");
+        // table name, target name, column name, column name, ...
+        // UPDATE users SET username=@username, name=@name WHERE userId=@userId
+
+        // Add parameters
+        Mad("@username", user.Username, "@name", user.Name, "@userId", user.Id);
+        // Similar to Bulk() but does not auto Finish()
+        // Add() can be used before and after Mad()
+        // Mad() will throw an error if the number of parameters is not even, but there is not a limit to the number of parameters you can add
+
         Finish(); // prepare statement and execute
       }
     }

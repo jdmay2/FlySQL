@@ -7,7 +7,7 @@
     <PackageIcon>logo.png</PackageIcon>
     <Description>FlySQL is a simple, easy to use companion for the MySQL.Data NuGet library.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageTags>MySql, SQL, Data, Query</PackageTags>
     <RepositoryUrl>https://github.com/jdmay2/FlySQL</RepositoryUrl>
     <ImplicitUsings>enable</ImplicitUsings>

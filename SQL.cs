@@ -13,6 +13,12 @@ public abstract class SQL
         con.Open();
         cmd = new MySqlCommand(stm, con);
     }
+    public void Query(string stm, string param, object value)
+    {
+        con.Open();
+        cmd = new MySqlCommand(stm, con);
+        cmd.Parameters.AddWithValue($"@{param}", value);
+    }
     public void Select(string table)
     {
         Query(@$"SELECT * FROM {table}");
@@ -22,22 +28,84 @@ public abstract class SQL
         string stm = @$"SELECT * FROM {table} WHERE {target} = @{target}";
         Query(stm);
     }
+    public void Select(string table, string target, object value)
+    {
+        string stm = @$"SELECT * FROM {table} WHERE {target} = @{target}";
+        Query(stm);
+        cmd.Parameters.AddWithValue($"@{target}", value);
+    }
     public void Insert(string table, params string[] columns)
     {
         string stm = @$"INSERT INTO {table} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", columns.Select(x => $"@{x}"))})";
         Query(stm);
+    }
+    public void OneInsert(string table, params object[] values)
+    {
+        if (values.Length % 2 != 0)
+        {
+            throw new Exception("SQL.OneInsert() values must be in pairs. Please see documentation.");
+        }
+        else
+        {
+            List<object> keys = new List<object>();
+            List<object> value = new List<object>();
+            for (int i = 0; i < values.Length; i += 2)
+            {
+                keys.Add(values[i]);
+                value.Add(values[i + 1]);
+            }
+            string stm = @$"INSERT INTO {table} ({string.Join(", ", keys)}) VALUES ({string.Join(", ", keys.Select(x => $"@{x}"))})";
+            Query(stm);
+            for (int i = 0; i < keys.Count; i++)
+            {
+                cmd.Parameters.AddWithValue($"@{keys[i]}", value[i]);
+            }
+            Finish();
+        }
     }
     public void Update(string table, string target, params string[] columns)
     {
         string stm = @$"UPDATE {table} SET {string.Join(", ", columns.Select(x => $"{x} = @{x}"))} WHERE {target} = @{target}";
         Query(stm);
     }
+    public void OneUpdate(string table, string target, object targetValue, params object[] values)
+    {
+        if (values.Length % 2 != 0)
+        {
+            throw new Exception("SQL.OneUpdate() values must be in pairs. Please see documentation.");
+        }
+        else
+        {
+            List<object> keys = new List<object>();
+            List<object> value = new List<object>();
+            for (int i = 0; i < values.Length; i += 2)
+            {
+                keys.Add(values[i]);
+                value.Add(values[i + 1]);
+            }
+            string stm = @$"UPDATE {table} SET {string.Join(", ", keys.Select(x => $"{x} = @{x}"))} WHERE {target} = @{target}";
+            Query(stm);
+            cmd.Parameters.AddWithValue($"@{target}", targetValue);
+            for (int i = 0; i < keys.Count; i++)
+            {
+                cmd.Parameters.AddWithValue($"@{keys[i]}", value[i]);
+            }
+            Finish();
+        }
+    }
     public void Delete(string table, string target)
     {
         string stm = @$"DELETE FROM {table} WHERE {target} = @{target}";
         Query(stm);
     }
-    public void Bulk(params object[] values)
+    public void Delete(string table, string target, object value)
+    {
+        string stm = @$"DELETE FROM {table} WHERE {target} = @{target}";
+        Query(stm);
+        cmd.Parameters.AddWithValue($"@{target}", value);
+        Finish();
+    }
+    public void Mad(params object[] values)
     {
         if (values.Length % 2 != 0)
         {
@@ -49,39 +117,24 @@ public abstract class SQL
             {
                 cmd.Parameters.AddWithValue(values[i].ToString(), values[i + 1]);
             }
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
         }
     }
-    public void Add(string name, string value)
+    public void Bulk(params object[] values)
     {
-        cmd.Parameters.AddWithValue(name, value);
+        if (values.Length % 2 != 0)
+        {
+            throw new Exception("SQL.Bulk() values must be in pairs. Please see documentation.");
+        }
+        else
+        {
+            for (int i = 0; i < values.Length; i += 2)
+            {
+                cmd.Parameters.AddWithValue(values[i].ToString(), values[i + 1]);
+            }
+            Finish();
+        }
     }
-    public void Add(string name, int value)
-    {
-        cmd.Parameters.AddWithValue(name, value);
-    }
-    public void Add(string name, long value)
-    {
-        cmd.Parameters.AddWithValue(name, value);
-    }
-    public void Add(string name, double value)
-    {
-        cmd.Parameters.AddWithValue(name, value);
-    }
-    public void Add(string name, float value)
-    {
-        cmd.Parameters.AddWithValue(name, value);
-    }
-    public void Add(string name, decimal value)
-    {
-        cmd.Parameters.AddWithValue(name, value);
-    }
-    public void Add(string name, DateTime value)
-    {
-        cmd.Parameters.AddWithValue(name, value);
-    }
-    public void Add(string name, Boolean value)
+    public void Add(string name, object value)
     {
         cmd.Parameters.AddWithValue(name, value);
     }
@@ -94,9 +147,13 @@ public abstract class SQL
     {
         return rdr.Read();
     }
-    public string? NString(int i)
+    public string? NStrung(int i)
     {
         return rdr.IsDBNull(i) ? null : rdr.GetString(i);
+    }
+    public string NString(int i)
+    {
+        return rdr.IsDBNull(i) ? "" : rdr.GetString(i);
     }
     public int NInt(int i)
     {
