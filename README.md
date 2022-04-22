@@ -53,7 +53,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 ### Script & Interactive
 
-```cmd
+```
     #r "nuget: Fly.SQL, 1.0.2"
 ```
 
