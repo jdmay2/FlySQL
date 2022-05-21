@@ -7,7 +7,7 @@
     <PackageIcon>logo.png</PackageIcon>
     <Description>FlySQL is a simple, easy to use companion for the MySQL.Data NuGet library.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.3</Version>
+    <Version>1.0.5</Version>
     <PackageTags>MySql, SQL, Data, Query</PackageTags>
     <RepositoryUrl>https://github.com/jdmay2/FlySQL</RepositoryUrl>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -16,8 +16,11 @@
 
   <ItemGroup>
     <None Include="./.github/resources/logo.png" Pack="true" PackagePath="" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="MySql.Data" Version="8.0.28" />
     <Using Include="MySql.Data.MySqlClient" />
+    <Using Include="System.Data" />
+    <Using Include="Microsoft.AspNetCore.Mvc" />
   </ItemGroup>
 
 </Project>
