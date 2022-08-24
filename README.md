@@ -79,7 +79,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 > These are condensed versions of MySqlDataReader's parsing methods for incoming values (GetInt32, GetString, ...)
 
-- [`Guid(int)`]
+- `Guid(int)`
 - [`String(int)`](#full-read-example)
 - [`Int(int)`](#full-read-example)
 - `Long(int)`
