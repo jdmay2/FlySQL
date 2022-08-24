@@ -1,5 +1,5 @@
 ﻿namespace FlySQL;
-public abstract class SQL : ControllerBase
+public abstract class SQL
 {
     private MySqlConnection con { get; set; }
     private MySqlCommand cmd { get; set; }
@@ -82,6 +82,7 @@ public abstract class SQL : ControllerBase
         rdr = cmd.ExecuteReader();
     }
     public bool Study() { return rdr.Read(); }
+    public Guid? NGuid(int i) { return rdr.IsDBNull(i) ? null : rdr.GetGuid(i); }
     public string? NStrung(int i) { return rdr.IsDBNull(i) ? null : rdr.GetString(i); }
     public string NString(int i) { return rdr.IsDBNull(i) ? "" : rdr.GetString(i); }
     public int NInt(int i) { return rdr.IsDBNull(i) ? 0 : rdr.GetInt32(i); }
@@ -91,6 +92,7 @@ public abstract class SQL : ControllerBase
     public decimal NDecimal(int i) { return rdr.IsDBNull(i) ? 0.0m : rdr.GetDecimal(i); }
     public DateTime NDate(int i) { return rdr.IsDBNull(i) ? DateTime.MinValue : rdr.GetDateTime(i); }
     public bool NBool(int i) { return rdr.IsDBNull(i) ? false : rdr.GetBoolean(i); }
+    public Guid Guid(int i) { return rdr.GetGuid(i); }
     public string String(int i) { return rdr.GetString(i); }
     public int Int(int i) { return rdr.GetInt32(i); }
     public long Long(int i) { return rdr.GetInt64(i); }
@@ -103,6 +105,7 @@ public abstract class SQL : ControllerBase
     {
         cmd.Prepare();
         cmd.ExecuteNonQuery();
+        Close();
     }
     public void Close() { con.Close(); }
 }
