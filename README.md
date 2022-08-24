@@ -79,6 +79,7 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 > These are condensed versions of MySqlDataReader's parsing methods for incoming values (GetInt32, GetString, ...)
 
+- [`Guid(int)`]
 - [`String(int)`](#full-read-example)
 - [`Int(int)`](#full-read-example)
 - `Long(int)`
@@ -90,6 +91,8 @@ A simple ORM for the MySql.Data NuGet package to use in any projects allowing fo
 
 > Same as above, but for possible null values. Condensed versions of MySqlDataReader null checks for incoming values (IsDBNull).
 
+- `NGuid(int)`
+  - Returns null if null
 - `NString(int)`
   - Returns `""` if null
 - `NStrung(int)`
